@@ -1,0 +1,45 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Notebook Dell Inspiron",
+      "preco": 2500.00,
+      "quantidade": 5,
+      "categoria": "Eletrônicos",
+      "data_cadastro": "2024-01-15T10:30:00"
+    },
+    {
+      "id": 2,
+      "nome": "Mouse Logitech",
+      "preco": 45.90,
+      "quantidade": 25,
+      "categoria": "Acessórios",
+      "data_cadastro": "2024-01-15T10:35:00"
+    },
+    {
+      "id": 3,
+      "nome": "Teclado Mecânico",
+      "preco": 180.00,
+      "quantidade": 12,
+      "categoria": "Acessórios",
+      "data_cadastro": "2024-01-15T10:40:00"
+    },
+    {
+      "id": 4,
+      "nome": "Monitor Samsung 24\"",
+      "preco": 800.00,
+      "quantidade": 8,
+      "categoria": "Eletrônicos",
+      "data_cadastro": "2024-01-15T10:45:00"
+    },
+    {
+      "id": 5,
+      "nome": "Cadeira Gamer",
+      "preco": 450.00,
+      "quantidade": 3,
+      "categoria": "Móveis",
+      "data_cadastro": "2024-01-15T10:50:00"
+    }
+  ],
+  "ultima_atualizacao": "2024-01-15T10:50:00"
+}
