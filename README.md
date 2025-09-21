@@ -50,6 +50,12 @@ Este projeto foi desenvolvido com foco acadêmico para demonstrar diferentes com
 - **Formato**: Estrutura JSON com metadados
 - **Segurança**: Alerta antes de recarregar com alterações não salvas
 
+### 9. **Zerar Estoque** - O(1)
+- **Complexidade**: O(1) - limpeza da lista
+- **Operação**: Remove todos os produtos do estoque
+- **Segurança**: Dupla confirmação obrigatória
+- **Validação**: Verifica se estoque já está vazio
+
 ## 🏗️ Estrutura do Projeto
 
 ```
@@ -65,6 +71,7 @@ gerenciador-estoque/
 
 ### **O(1) - Tempo Constante**
 - **Adicionar produto**: Inserção no final da lista
+- **Zerar estoque**: Limpeza da lista
 - **Acesso por índice**: Operações diretas em listas
 
 ### **O(n) - Tempo Linear**
@@ -117,6 +124,9 @@ produto = gerenciador.buscar_produto("Notebook")
 
 # Ordenar produtos - O(n log n)
 gerenciador.ordenar_produtos()
+
+# Zerar estoque - O(1)
+gerenciador.zerar_estoque()
 ```
 
 ## 🔍 Detalhes Técnicos
@@ -159,6 +169,14 @@ gerenciador.ordenar_produtos()
 - Alerta antes de recarregar estoque
 - Opção de salvar alterações antes de descartar
 - Confirmação para operações destrutivas
+- **Zerar estoque**: Dupla confirmação obrigatória
+
+#### **Zerar Estoque - Nova Funcionalidade**
+- **Dupla confirmação**: Duas etapas de validação
+- **Confirmação por palavra**: Deve digitar "ZERAR"
+- **Contagem de produtos**: Mostra quantos serão removidos
+- **Verificação inteligente**: Avisa se estoque já está vazio
+- **Atualização automática**: Atualiza timestamp de modificação
 
 ### **Tratamento de Erros**
 - Validação de entrada de dados
@@ -203,11 +221,6 @@ gerenciador.ordenar_produtos()
 - Ordenação (Timsort)
 - Cálculos estatísticos
 
-✅ **Boas práticas**:
-- Código modular e documentado
-- Tratamento de erros
-- Interface amigável
-- Validação de dados
 
 ## 🆕 Funcionalidades Adicionadas
 
@@ -218,8 +231,10 @@ gerenciador.ordenar_produtos()
 - ✅ **Segurança de dados**: Alerta antes de recarregar
 - ✅ **Interface melhorada**: Mensagens mais claras e intuitivas
 
-## 👨‍💻 Autor
-Projeto desenvolvido para fins acadêmicos com foco em análise de complexidade algorítmica.
+### **Versão 2.1 - Nova Funcionalidade**
+- ✅ **Zerar estoque**: Remove todos os produtos com dupla confirmação
+- ✅ **Segurança aprimorada**: Sistema de confirmação em duas etapas
+- ✅ **Validação inteligente**: Verifica se estoque já está vazio
 
 ## 📝 Licença
 Este projeto é de uso acadêmico e educacional.
