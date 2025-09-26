@@ -15,13 +15,13 @@ class GerenciadorEstoque:
             if os.path.exists(self.arquivo_estoque):
                 with open(self.arquivo_estoque, 'r', encoding='utf-8') as arquivo:
                     dados = json.load(arquivo)
-                    print(f"✅ Estoque carregado com sucesso! {len(dados.get('produtos', []))} produtos encontrados.")
+                    print(f"Estoque carregado com sucesso! {len(dados.get('produtos', []))} produtos encontrados.")
                     return dados
             else:
-                print("📁 Arquivo de estoque não encontrado. Criando novo estoque...")
+                print("Arquivo de estoque não encontrado. Criando novo estoque...")
                 return {"produtos": [], "ultima_atualizacao": datetime.now().isoformat()}
         except Exception as e:
-            print(f"❌ Erro ao carregar estoque: {e}")
+            print(f"Erro ao carregar estoque: {e}")
             return {"produtos": [], "ultima_atualizacao": datetime.now().isoformat()}
     
     def salvar_estoque(self) -> bool:
@@ -29,10 +29,10 @@ class GerenciadorEstoque:
             self.estoque["ultima_atualizacao"] = datetime.now().isoformat()
             with open(self.arquivo_estoque, 'w', encoding='utf-8') as arquivo:
                 json.dump(self.estoque, arquivo, ensure_ascii=False, indent=2)
-            print("💾 Estoque salvo com sucesso!")
+            print("Estoque salvo com sucesso!")
             return True
         except Exception as e:
-            print(f"❌ Erro ao salvar estoque: {e}")
+            print(f"Erro ao salvar estoque: {e}")
             return False
     
     def _converter_preco(self, preco_str: str) -> float:
@@ -49,23 +49,23 @@ class GerenciadorEstoque:
         try:
             nome = input("Nome do produto: ").strip()
             if not nome:
-                print("❌ Nome do produto não pode estar vazio!")
+                print("Nome do produto não pode estar vazio!")
                 return False
             
             for produto in self.estoque["produtos"]:
                 if produto["nome"].lower() == nome.lower():
-                    print(f"❌ Produto '{nome}' já existe no estoque!")
+                    print(f"Produto '{nome}' já existe no estoque!")
                     return False
             
             preco_str = input("Preço unitário (R$): ").strip()
             preco = self._converter_preco(preco_str)
             if preco < 0:
-                print("❌ Preço não pode ser negativo!")
+                print("Preço não pode ser negativo!")
                 return False
             
             quantidade = int(input("Quantidade em estoque: "))
             if quantidade < 0:
-                print("❌ Quantidade não pode ser negativa!")
+                print("Quantidade não pode ser negativa!")
                 return False
             
             categoria = input("Categoria (opcional): ").strip()
@@ -81,7 +81,7 @@ class GerenciadorEstoque:
             
             self.estoque["produtos"].append(novo_produto)
             
-            print(f"✅ Produto '{nome}' adicionado com sucesso!")
+            print(f"Produto '{nome}' adicionado com sucesso!")
             print(f"   Preço: R$ {preco:.2f}")
             print(f"   Quantidade: {quantidade}")
             print(f"   Categoria: {categoria or 'Sem categoria'}")
@@ -89,10 +89,10 @@ class GerenciadorEstoque:
             return True
             
         except ValueError as e:
-            print(f"❌ Erro: {e}")
+            print(f"Erro: {e}")
             return False
         except Exception as e:
-            print(f"❌ Erro inesperado: {e}")
+            print(f"Erro inesperado: {e}")
             return False
     
     def listar_produtos(self) -> None:
@@ -100,7 +100,7 @@ class GerenciadorEstoque:
         print("=" * 80)
         
         if not self.estoque["produtos"]:
-            print("📭 Nenhum produto cadastrado no estoque.")
+            print("Nenhum produto cadastrado no estoque.")
             return
         
         print("1. Listar todos os produtos")
@@ -125,9 +125,9 @@ class GerenciadorEstoque:
                         categoria_escolhida = categorias[cat_opcao - 1]
                         produtos_para_exibir = [p for p in self.estoque["produtos"] 
                                               if p["categoria"] == categoria_escolhida]
-                        print(f"\n🔍 Filtrando por categoria: {categoria_escolhida}")
+                        print(f"\nFiltrando por categoria: {categoria_escolhida}")
                     else:
-                        print("❌ Opção inválida! Listando todos os produtos.")
+                        print("Opção inválida! Listando todos os produtos.")
                 except ValueError:
                     print("❌ Opção inválida! Listando todos os produtos.")
             elif opcao != 1:
@@ -137,7 +137,7 @@ class GerenciadorEstoque:
             print("❌ Opção inválida! Listando todos os produtos.")
         
         if not produtos_para_exibir:
-            print("📭 Nenhum produto encontrado com os critérios selecionados.")
+            print("Nenhum produto encontrado com os critérios selecionados.")
             return
         
         print(f"\n{'ID':<4} {'Nome':<20} {'Preço':<12} {'Qtd':<6} {'Categoria':<15} {'Data Cadastro'}")
@@ -148,9 +148,9 @@ class GerenciadorEstoque:
             print(f"{produto['id']:<4} {produto['nome']:<20} R$ {produto['preco']:<10.2f} "
                   f"{produto['quantidade']:<6} {produto['categoria']:<15} {data_cadastro}")
         
-        print(f"\n📊 Total de produtos exibidos: {len(produtos_para_exibir)}")
+        print(f"\nTotal de produtos exibidos: {len(produtos_para_exibir)}")
         if len(produtos_para_exibir) != len(self.estoque["produtos"]):
-            print(f"📊 Total de produtos no estoque: {len(self.estoque['produtos'])}")
+            print(f"Total de produtos no estoque: {len(self.estoque['produtos'])}")
     
     def buscar_produto(self, nome: str = None) -> Optional[Dict[str, Any]]:
         if nome is None:
@@ -164,7 +164,7 @@ class GerenciadorEstoque:
         
         for produto in self.estoque["produtos"]:
             if produto["nome"].lower() == nome.lower():
-                print(f"\n✅ Produto encontrado:")
+                print(f"\nProduto encontrado:")
                 print(f"   ID: {produto['id']}")
                 print(f"   Nome: {produto['nome']}")
                 print(f"   Preço: R$ {produto['preco']:.2f}")
@@ -173,7 +173,7 @@ class GerenciadorEstoque:
                 print(f"   Data de cadastro: {produto['data_cadastro'][:10]}")
                 return produto
         
-        print(f"❌ Produto '{nome}' não encontrado no estoque.")
+        print(f"Produto '{nome}' não encontrado no estoque.")
         return None
     
     def atualizar_produto(self) -> bool:
@@ -192,7 +192,7 @@ class GerenciadorEstoque:
                 break
         
         if not produto:
-            print(f"❌ Produto '{nome}' não encontrado!")
+            print(f"Produto '{nome}' não encontrado!")
             return False
         
         print(f"\nProduto encontrado: {produto['nome']}")
@@ -203,7 +203,7 @@ class GerenciadorEstoque:
             if novo_preco:
                 preco = self._converter_preco(novo_preco)
                 if preco < 0:
-                    print("❌ Preço não pode ser negativo!")
+                    print("Preço não pode ser negativo!")
                     return False
                 produto["preco"] = preco
             
@@ -211,7 +211,7 @@ class GerenciadorEstoque:
             if nova_quantidade:
                 quantidade = int(nova_quantidade)
                 if quantidade < 0:
-                    print("❌ Quantidade não pode ser negativa!")
+                    print("Quantidade não pode ser negativa!")
                     return False
                 produto["quantidade"] = quantidade
             
@@ -219,14 +219,14 @@ class GerenciadorEstoque:
             if nova_categoria:
                 produto["categoria"] = nova_categoria
             
-            print(f"✅ Produto '{produto['nome']}' atualizado com sucesso!")
+            print(f"Produto '{produto['nome']}' atualizado com sucesso!")
             return True
             
         except ValueError:
-            print("❌ Erro: Preço e quantidade devem ser números válidos!")
+            print("Erro: Preço e quantidade devem ser números válidos!")
             return False
         except Exception as e:
-            print(f"❌ Erro inesperado: {e}")
+            print(f"Erro inesperado: {e}")
             return False
     
     def remover_produto(self) -> bool:
@@ -243,13 +243,13 @@ class GerenciadorEstoque:
                 confirmacao = input(f"Tem certeza que deseja remover '{produto['nome']}'? (s/n): ").lower()
                 if confirmacao in ['s', 'sim', 'y', 'yes']:
                     produto_removido = self.estoque["produtos"].pop(i)
-                    print(f"✅ Produto '{produto_removido['nome']}' removido com sucesso!")
+                    print(f"Produto '{produto_removido['nome']}' removido com sucesso!")
                     return True
                 else:
-                    print("❌ Operação cancelada.")
+                    print("Operação cancelada.")
                     return False
         
-        print(f"❌ Produto '{nome}' não encontrado!")
+        print(f"Produto '{nome}' não encontrado!")
         return False
     
     def relatorio_estoque(self) -> None:
@@ -302,53 +302,53 @@ class GerenciadorEstoque:
             
             if opcao == 1:
                 self.estoque["produtos"].sort(key=lambda p: p["nome"].lower())
-                print("✅ Produtos ordenados por nome (A-Z)")
+                print("Produtos ordenados por nome (A-Z)")
             elif opcao == 2:
                 self.estoque["produtos"].sort(key=lambda p: p["preco"])
-                print("✅ Produtos ordenados por preço (menor para maior)")
+                print("Produtos ordenados por preço (menor para maior)")
             elif opcao == 3:
                 self.estoque["produtos"].sort(key=lambda p: p["quantidade"], reverse=True)
-                print("✅ Produtos ordenados por quantidade (maior para menor)")
+                print("Produtos ordenados por quantidade (maior para menor)")
             elif opcao == 4:
                 self.estoque["produtos"].sort(key=lambda p: p["categoria"].lower())
-                print("✅ Produtos ordenados por categoria (A-Z)")
+                print("Produtos ordenados por categoria (A-Z)")
             else:
-                print("❌ Opção inválida!")
+                print("Opção inválida!")
                 return
             
             self.listar_produtos()
             
         except ValueError:
-            print("❌ Opção deve ser um número válido!")
+            print("Opção deve ser um número válido!")
     
     def zerar_estoque(self) -> bool:
         print("\n🗑️ ZERAR ESTOQUE")
         print("-" * 20)
         
         if not self.estoque["produtos"]:
-            print("📭 O estoque já está vazio!")
+            print("O estoque já está vazio!")
             return True
         
         total_produtos = len(self.estoque["produtos"])
-        print(f"⚠️ ATENÇÃO: Esta operação irá remover TODOS os {total_produtos} produtos do estoque!")
+        print(f"ATENÇÃO: Esta operação irá remover TODOS os {total_produtos} produtos do estoque!")
         print("Esta ação NÃO pode ser desfeita!")
         
         confirmacao1 = input("Tem certeza que deseja zerar o estoque? (s/n): ").lower()
         if confirmacao1 not in ['s', 'sim', 'y', 'yes']:
-            print("❌ Operação cancelada.")
+            print("Operação cancelada.")
             return False
         
-        print(f"\n⚠️ ÚLTIMA CONFIRMAÇÃO: Digite 'ZERAR' para confirmar a remoção de {total_produtos} produtos:")
+        print(f"\nÚLTIMA CONFIRMAÇÃO: Digite 'ZERAR' para confirmar a remoção de {total_produtos} produtos:")
         confirmacao2 = input("Digite 'ZERAR' para confirmar: ").strip()
         
         if confirmacao2.upper() != 'ZERAR':
-            print("❌ Confirmação incorreta. Operação cancelada.")
+            print("Confirmação incorreta. Operação cancelada.")
             return False
         
         self.estoque["produtos"] = []
         self.estoque["ultima_atualizacao"] = datetime.now().isoformat()
         
-        print(f"✅ Estoque zerado com sucesso! {total_produtos} produtos removidos.")
+        print(f"Estoque zerado com sucesso! {total_produtos} produtos removidos.")
         return True
     
     def menu(self) -> None:
@@ -389,38 +389,38 @@ class GerenciadorEstoque:
                 elif opcao == 8:
                     self.salvar_estoque()
                 elif opcao == 9:
-                    print("\n⚠️ ATENÇÃO: Recarregar o estoque descartará todas as alterações não salvas!")
+                    print("\nATENÇÃO: Recarregar o estoque descartará todas as alterações não salvas!")
                     confirmacao = input("Deseja salvar as alterações antes de recarregar? (s/n): ").lower()
                     
                     if confirmacao in ['s', 'sim', 'y', 'yes']:
                         if self.salvar_estoque():
-                            print("✅ Alterações salvas com sucesso!")
+                            print("Alterações salvas com sucesso!")
                         else:
-                            print("❌ Erro ao salvar. Continuando com recarregamento...")
+                            print("Erro ao salvar. Continuando com recarregamento...")
                     elif confirmacao in ['n', 'não', 'nao', 'no']:
-                        print("⚠️ Alterações serão descartadas!")
+                        print("Alterações serão descartadas!")
                     else:
-                        print("❌ Opção inválida! Operação cancelada.")
+                        print("Opção inválida! Operação cancelada.")
                         continue
                     
                     self.estoque = self.carregar_estoque()
                 elif opcao == 10:
                     self.zerar_estoque()
                 elif opcao == 0:
-                    print("\n💾 Salvando estoque antes de sair...")
+                    print("\nSalvando estoque antes de sair...")
                     self.salvar_estoque()
-                    print("👋 Obrigado por usar o Gerenciador de Estoque!")
+                    print("Obrigado por usar o Gerenciador de Estoque!")
                     break
                 else:
-                    print("❌ Opção inválida! Escolha entre 0 e 10.")
+                    print("Opção inválida! Escolha entre 0 e 10.")
                     
             except ValueError:
-                print("❌ Digite um número válido!")
+                print("Digite um número válido!")
             except KeyboardInterrupt:
-                print("\n\n👋 Operação cancelada pelo usuário. Até logo!")
+                print("\n\nOperação cancelada pelo usuário. Até logo!")
                 break
             except Exception as e:
-                print(f"❌ Erro inesperado: {e}")
+                print(f"Erro inesperado: {e}")
 
 
 def main():
