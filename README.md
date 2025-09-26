@@ -144,8 +144,6 @@ gerenciador.zerar_estoque()
 ✅ **Algoritmos**: Busca linear, ordenação Timsort  
 ✅ **Boas práticas**: Código modular, tratamento de erros, validação  
 
-## 👨‍💻 Autor
-Projeto desenvolvido para fins acadêmicos com foco em análise de complexidade algorítmica.
 
 ## 📝 Licença
 Este projeto é de uso acadêmico e educacional.
