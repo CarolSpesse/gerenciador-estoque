@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import json
 import os
 from typing import Dict, List, Optional, Any
@@ -9,26 +7,10 @@ from datetime import datetime
 class GerenciadorEstoque:
      
     def __init__(self, arquivo_estoque: str = "estoque.json"):
-        """
-        Inicializa o gerenciador de estoque.
-        
-        Args:
-            arquivo_estoque (str): Caminho para o arquivo JSON de estoque
-        """
         self.arquivo_estoque = arquivo_estoque
         self.estoque = self.carregar_estoque()
     
     def carregar_estoque(self) -> Dict[str, Any]:
-        """
-        Carrega os dados do estoque do arquivo JSON.
-        
-        Complexidade: O(n) onde n é o número de produtos no arquivo
-        - Leitura do arquivo: O(1)
-        - Parsing JSON: O(n) onde n é o tamanho do arquivo
-        
-        Returns:
-            Dict contendo os dados do estoque
-        """
         try:
             if os.path.exists(self.arquivo_estoque):
                 with open(self.arquivo_estoque, 'r', encoding='utf-8') as arquivo:
@@ -43,16 +25,6 @@ class GerenciadorEstoque:
             return {"produtos": [], "ultima_atualizacao": datetime.now().isoformat()}
     
     def salvar_estoque(self) -> bool:
-        """
-        Salva os dados do estoque no arquivo JSON.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Serialização JSON: O(n)
-        - Escrita no arquivo: O(n)
-        
-        Returns:
-            bool: True se salvou com sucesso, False caso contrário
-        """
         try:
             self.estoque["ultima_atualizacao"] = datetime.now().isoformat()
             with open(self.arquivo_estoque, 'w', encoding='utf-8') as arquivo:
@@ -64,15 +36,6 @@ class GerenciadorEstoque:
             return False
     
     def _converter_preco(self, preco_str: str) -> float:
-        """
-        Converte string de preço com vírgula para float.
-        
-        Args:
-            preco_str (str): String do preço (ex: "7,99" ou "7.99")
-            
-        Returns:
-            float: Preço convertido
-        """
         try:
             preco_str = preco_str.replace(",", ".")
             return float(preco_str)
@@ -80,16 +43,6 @@ class GerenciadorEstoque:
             raise ValueError("Formato de preço inválido")
 
     def adicionar_produto(self) -> bool:
-        """
-        Adiciona um novo produto ao estoque.
-        
-        Complexidade: O(1) - inserção no final da lista
-        - Verificação de duplicatas: O(n) no pior caso
-        - Inserção na lista: O(1)
-        
-        Returns:
-            bool: True se adicionou com sucesso, False caso contrário
-        """
         print("\n📦 ADICIONAR NOVO PRODUTO")
         print("-" * 30)
         
@@ -104,7 +57,7 @@ class GerenciadorEstoque:
                     print(f"❌ Produto '{nome}' já existe no estoque!")
                     return False
             
-            preco_str = input("Preço unitário (R$ dd, ex: 7,99): ").strip()
+            preco_str = input("Preço unitário (R$): ").strip()
             preco = self._converter_preco(preco_str)
             if preco < 0:
                 print("❌ Preço não pode ser negativo!")
@@ -143,15 +96,6 @@ class GerenciadorEstoque:
             return False
     
     def listar_produtos(self) -> None:
-        """
-        Lista todos os produtos do estoque com opção de filtro por categoria.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Iteração sobre todos os produtos: O(n)
-        - Filtro por categoria: O(n)
-        - Formatação de saída: O(n)
-        
-        """
         print("\n📋 LISTA DE PRODUTOS")
         print("=" * 80)
         
@@ -200,7 +144,7 @@ class GerenciadorEstoque:
         print("-" * 80)
         
         for produto in produtos_para_exibir:
-            data_cadastro = produto["data_cadastro"][:10]  # Apenas a data
+            data_cadastro = produto["data_cadastro"][:10]
             print(f"{produto['id']:<4} {produto['nome']:<20} R$ {produto['preco']:<10.2f} "
                   f"{produto['quantidade']:<6} {produto['categoria']:<15} {data_cadastro}")
         
@@ -209,19 +153,6 @@ class GerenciadorEstoque:
             print(f"📊 Total de produtos no estoque: {len(self.estoque['produtos'])}")
     
     def buscar_produto(self, nome: str = None) -> Optional[Dict[str, Any]]:
-        """
-        Busca um produto pelo nome.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Busca linear: O(n) no pior caso
-        - Comparação de strings: O(k) onde k é o tamanho da string
-        
-        Args:
-            nome (str, optional): Nome do produto a buscar
-            
-        Returns:
-            Dict do produto encontrado ou None se não encontrado
-        """
         if nome is None:
             print("\n🔍 BUSCAR PRODUTO")
             print("-" * 20)
@@ -246,16 +177,6 @@ class GerenciadorEstoque:
         return None
     
     def atualizar_produto(self) -> bool:
-        """
-        Atualiza informações de um produto existente.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Busca do produto: O(n)
-        - Atualização: O(1)
-        
-        Returns:
-            bool: True se atualizou com sucesso, False caso contrário
-        """
         print("\n✏️ ATUALIZAR PRODUTO")
         print("-" * 20)
         
@@ -278,7 +199,7 @@ class GerenciadorEstoque:
         print("Deixe em branco para manter o valor atual.")
         
         try:
-            novo_preco = input(f"Novo preço (atual: R$ {produto['preco']:.2f} dd): ").strip()
+            novo_preco = input(f"Novo preço (atual: R$ {produto['preco']:.2f}): ").strip()
             if novo_preco:
                 preco = self._converter_preco(novo_preco)
                 if preco < 0:
@@ -309,16 +230,6 @@ class GerenciadorEstoque:
             return False
     
     def remover_produto(self) -> bool:
-        """
-        Remove um produto do estoque.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Busca do produto: O(n)
-        - Remoção da lista: O(n) no pior caso (deslocamento de elementos)
-        
-        Returns:
-            bool: True se removeu com sucesso, False caso contrário
-        """
         print("\n🗑️ REMOVER PRODUTO")
         print("-" * 18)
         
@@ -342,14 +253,6 @@ class GerenciadorEstoque:
         return False
     
     def relatorio_estoque(self) -> None:
-        """
-        Gera um relatório completo do estoque.
-        
-        Complexidade: O(n) onde n é o número de produtos
-        - Iteração sobre todos os produtos: O(n)
-        - Cálculos estatísticos: O(n)
-        
-        """
         print("\n📊 RELATÓRIO DO ESTOQUE")
         print("=" * 50)
         
@@ -387,13 +290,6 @@ class GerenciadorEstoque:
         print(f"\n📅 Última atualização: {self.estoque['ultima_atualizacao'][:19]}")
     
     def ordenar_produtos(self) -> None:
-        """
-        Ordena os produtos por diferentes critérios.
-        
-        Complexidade: O(n log n) onde n é o número de produtos
-        - Algoritmo de ordenação (Timsort): O(n log n)
-        
-        """
         print("\n🔄 ORDENAR PRODUTOS")
         print("-" * 20)
         print("1. Por nome (A-Z)")
@@ -426,15 +322,6 @@ class GerenciadorEstoque:
             print("❌ Opção deve ser um número válido!")
     
     def zerar_estoque(self) -> bool:
-        """
-        Remove todos os produtos do estoque.
-        
-        Complexidade: O(1) - limpeza da lista
-        - Operação de limpeza: O(1)
-        
-        Returns:
-            bool: True se zerou com sucesso, False caso contrário
-        """
         print("\n🗑️ ZERAR ESTOQUE")
         print("-" * 20)
         
@@ -458,7 +345,6 @@ class GerenciadorEstoque:
             print("❌ Confirmação incorreta. Operação cancelada.")
             return False
         
-        # Zerar estoque - O(1)
         self.estoque["produtos"] = []
         self.estoque["ultima_atualizacao"] = datetime.now().isoformat()
         
@@ -466,13 +352,6 @@ class GerenciadorEstoque:
         return True
     
     def menu(self) -> None:
-        """
-        Exibe o menu principal e gerencia as operações.
-        
-        Complexidade: O(1) para cada operação do menu
-        - A complexidade real depende da operação escolhida
-        
-        """
         while True:
             print("\n" + "="*50)
             print("🏪 GERENCIADOR DE ESTOQUE - MENU PRINCIPAL")
@@ -545,9 +424,6 @@ class GerenciadorEstoque:
 
 
 def main():
-    """
-    Função principal do programa.
-    """
     print("Bem-vindo ao Gerenciador de Estoque!")
     print("="*60)
     
