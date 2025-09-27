@@ -1,8 +1,5 @@
 # 🏪 Gerenciador de Estoque - Projeto Acadêmico
 
-## 📚 Objetivo
-Projeto acadêmico para demonstrar complexidades algorítmicas em operações de gerenciamento de estoque.
-
 ## 🚀 Como Usar
 
 ### **Execução Rápida:**
@@ -65,12 +62,6 @@ python main.py
 - ✅ **Salvar/Carregar estoque** - O(n) com persistência JSON
 - ✅ **Zerar estoque** - O(1) com dupla confirmação
 - ✅ **Recarregar estoque** - O(n) com alerta de salvamento
-
-### **Recursos Avançados:**
-- ✅ **Entrada com vírgula**: Suporte a formato brasileiro (7,99)
-- ✅ **Filtro por categoria**: Listagem inteligente
-- ✅ **Segurança de dados**: Confirmações para operações destrutivas
-- ✅ **Validação robusta**: Tratamento de erros e validação de entrada
 
 ## 🏗️ Estrutura do Projeto
 
