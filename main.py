@@ -129,12 +129,12 @@ class GerenciadorEstoque:
                     else:
                         print("Opção inválida! Listando todos os produtos.")
                 except ValueError:
-                    print("❌ Opção inválida! Listando todos os produtos.")
+                    print("Opção inválida! Listando todos os produtos.")
             elif opcao != 1:
-                print("❌ Opção inválida! Listando todos os produtos.")
+                print("Opção inválida! Listando todos os produtos.")
                 
         except ValueError:
-            print("❌ Opção inválida! Listando todos os produtos.")
+            print("Opção inválida! Listando todos os produtos.")
         
         if not produtos_para_exibir:
             print("Nenhum produto encontrado com os critérios selecionados.")
@@ -159,7 +159,7 @@ class GerenciadorEstoque:
             nome = input("Digite o nome do produto: ").strip()
         
         if not nome:
-            print("❌ Nome do produto não pode estar vazio!")
+            print("Nome do produto não pode estar vazio!")
             return None
         
         for produto in self.estoque["produtos"]:
@@ -182,7 +182,7 @@ class GerenciadorEstoque:
         
         nome = input("Digite o nome do produto a atualizar: ").strip()
         if not nome:
-            print("❌ Nome do produto não pode estar vazio!")
+            print("Nome do produto não pode estar vazio!")
             return False
         
         produto = None
@@ -235,7 +235,7 @@ class GerenciadorEstoque:
         
         nome = input("Digite o nome do produto a remover: ").strip()
         if not nome:
-            print("❌ Nome do produto não pode estar vazio!")
+            print("Nome do produto não pode estar vazio!")
             return False
         
         for i, produto in enumerate(self.estoque["produtos"]):
