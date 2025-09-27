@@ -142,8 +142,3 @@ gerenciador.zerar_estoque()
 ✅ **Demonstração de complexidades**: O(1), O(n), O(n log n)  
 ✅ **Estruturas de dados**: Listas, dicionários, JSON  
 ✅ **Algoritmos**: Busca linear, ordenação Timsort  
-✅ **Boas práticas**: Código modular, tratamento de erros, validação  
-
-
-## 📝 Licença
-Este projeto é de uso acadêmico e educacional.
